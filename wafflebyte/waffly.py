@@ -1,7 +1,11 @@
 import sys
 import re # regex library
+import test
 #import random
 
+test.x()
+
+print test
 
 # IMPORTING THE URLLIB2 LIBRARY
 import urllib2
@@ -43,7 +47,6 @@ articles = set()
 # soup = BeautifulSoup(open("nytimes.com"))
 
 
-
 # HERE'S THE PART OF THE MIDTERM THAT WORKS
 
 # look at this document for word extractors
@@ -58,6 +61,44 @@ for line in open('meatballs.txt'):
     # print words # this gives a huge error (sets of sets)
     # print line # this gives an error (printing multiple lines of same word)
 
+text = sys.stdin.read()
+textWords = re.split(r"(\W+)", text)
+#print textWords
+
+
+word_re = re.compile(r"^\w+$")
+space_re = re.compile(r"^\s+$")
+
+
+def f(triple):
+  prev, curr, next = triple
+  # determine if each string is a word
+  is_c_word = word_re.match(curr)
+  is_p_space = space_re.match(prev) if prev is not None else False
+  is_next_space = space_re.match(next) if next is not None else False
+
+  if is_c_word and is_p_space and is_next_space: # it's a real word and it is neighbored by spaces (not punctuation)
+    return " " * len(curr)
+  else:
+    return curr
+
+
+def prev_curr_next_triples(seq):
+  prev = [None] + seq[:-1]
+  next = seq[1:] + [None]
+  return zip(prev, seq, next)
+#print prev_curr_next_triples(textWords)
+
+
+rep_words = [f(triple) for triple in prev_curr_next_triples(textWords)]
+print "".join(rep_words)
+
+
+
+
+
+sys.exit(0)
+
 
 # for all the lines in standard input (this provided text)
 for articleLine in sys.stdin:
@@ -65,7 +106,7 @@ for articleLine in sys.stdin:
   articleLine = re.sub(r"\w", " ", articleLine)
   print articleLine
 
-  for punct_match in re.findall(r'\w+\W \w+', line):
+  for punct_match in re.findall(r'\w+\W \w+', articleLine):
     print punct_match
   #articleLine = re.sub(r"\W", "A", articleLine) # debugging here
 
