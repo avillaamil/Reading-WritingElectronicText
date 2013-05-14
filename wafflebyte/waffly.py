@@ -1,11 +1,11 @@
 import sys
 import re # regex library
-import test
 #import random
 
-test.x()
-
-print test
+# testing modules!!!
+# import test
+# test.x()
+# print test
 
 # IMPORTING THE URLLIB2 LIBRARY
 import urllib2
@@ -82,7 +82,7 @@ def f(triple):
   else:
     return curr
 
-
+#FRAME SHIFT FUNCTION
 def prev_curr_next_triples(seq):
   prev = [None] + seq[:-1]
   next = seq[1:] + [None]
@@ -101,13 +101,13 @@ sys.exit(0)
 
 
 # for all the lines in standard input (this provided text)
-for articleLine in sys.stdin:
-  articleLine = articleLine.strip()
-  articleLine = re.sub(r"\w", " ", articleLine)
-  print articleLine
+# for articleLine in sys.stdin:
+#   articleLine = articleLine.strip()
+#   articleLine = re.sub(r"\w", " ", articleLine)
+#   print articleLine
 
-  for punct_match in re.findall(r'\w+\W \w+', articleLine):
-    print punct_match
+#   for punct_match in re.findall(r'\w+\W \w+', articleLine):
+#     print punct_match
   #articleLine = re.sub(r"\W", "A", articleLine) # debugging here
 
 
